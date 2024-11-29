@@ -2,7 +2,6 @@ package com.keyin.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -22,19 +21,16 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "departure_airport_id")
-    @JsonManagedReference
     @JsonBackReference
     private Airport departureAirport;
 
     @ManyToOne
     @JoinColumn(name = "arrival_airport_id")
-    @JsonManagedReference
     @JsonBackReference
     private Airport arrivalAirport;
 
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
-    @JsonManagedReference
     @JsonBackReference
     private Aircraft aircraft;
 
