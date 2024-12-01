@@ -1,5 +1,7 @@
 package com.keyin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,18 +23,19 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "departure_airport_id")
-    @JsonBackReference
+    @JsonIgnore
     private Airport departureAirport;
 
     @ManyToOne
     @JoinColumn(name = "arrival_airport_id")
-    @JsonBackReference
+    @JsonIgnore
     private Airport arrivalAirport;
 
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
-    @JsonBackReference
+    @JsonIgnore
     private Aircraft aircraft;
+
 
     public Long getId() {
         return id;

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/flights")
 public class FlightController {
@@ -35,7 +36,7 @@ public class FlightController {
         return flightService.getFlightsByAircraftId(aircraftId);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public Flight createFlight(@RequestBody Flight flight) {
         return flightService.saveFlight(flight);
     }
