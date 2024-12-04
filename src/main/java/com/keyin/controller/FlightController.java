@@ -41,6 +41,10 @@ public class FlightController {
         return flightService.saveFlight(flight);
     }
 
+    @PostMapping
+
+
+
     @PutMapping("/{flightNumber}")
     public Flight updateFlight(@PathVariable String flightNumber, @RequestBody Flight updatedFlight) {
         return flightService.updateFlight(flightNumber, updatedFlight);
@@ -50,6 +54,8 @@ public class FlightController {
     public void deleteFlight(@PathVariable String flightNumber) {
         flightService.deleteFlight(flightNumber);
     }
+
+
 }
 
 

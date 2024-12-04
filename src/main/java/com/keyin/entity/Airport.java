@@ -1,6 +1,7 @@
 package com.keyin.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -17,10 +18,12 @@ public class Airport {
 
     @OneToMany(mappedBy = "departureAirport")
     @JsonBackReference
+    @JsonIgnore
     private List<Flight> departures;
 
     @OneToMany(mappedBy = "arrivalAirport")
     @JsonBackReference
+    @JsonIgnore
     private List<Flight> arrivals;
 
     public Long getId() {
