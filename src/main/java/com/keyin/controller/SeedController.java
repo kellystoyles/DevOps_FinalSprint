@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/seed")
 public class SeedController {
@@ -73,7 +74,7 @@ public class SeedController {
         flight1.setArrivalAirport(gander);
         flight1.setScheduledDepartureTime(LocalDateTime.now().plusHours(2));
         flight1.setScheduledArrivalTime(LocalDateTime.now().plusHours(3));
-        flight1.setStatus("Scheduled");
+        flight1.setStatus("Landed");
         flight1.setGate("A1");
         flight1.setTerminal("T1");
         flight1.setAircraft(aircraft1);
@@ -86,7 +87,7 @@ public class SeedController {
         flight2.setArrivalAirport(deerLake);
         flight2.setScheduledDepartureTime(LocalDateTime.now().plusHours(4));
         flight2.setScheduledArrivalTime(LocalDateTime.now().plusHours(5));
-        flight2.setStatus("Scheduled");
+        flight2.setStatus("On Time");
         flight2.setGate("B2");
         flight2.setTerminal("T2");
         flight2.setAircraft(aircraft2);
@@ -99,7 +100,7 @@ public class SeedController {
         flight3.setArrivalAirport(stJohns);
         flight3.setScheduledDepartureTime(LocalDateTime.now().plusHours(6));
         flight3.setScheduledArrivalTime(LocalDateTime.now().plusHours(7));
-        flight3.setStatus("Scheduled");
+        flight3.setStatus("Delayed");
         flight3.setGate("C3");
         flight3.setTerminal("T3");
         flight3.setAircraft(aircraft1);
