@@ -70,8 +70,8 @@ public class SeedController {
         Flight flight1 = new Flight();
         flight1.setFlightNumber("FL001");
         flight1.setAirline("Air Canada");
-        flight1.setDepartureAirport(stJohns);
-        flight1.setArrivalAirport(gander);
+        flight1.setDepartureAirport(findAirportByIataCode("YYT"));
+        flight1.setArrivalAirport(findAirportByIataCode("YQX"));
         flight1.setScheduledDepartureTime(LocalDateTime.now().plusHours(2));
         flight1.setScheduledArrivalTime(LocalDateTime.now().plusHours(3));
         flight1.setStatus("Landed");
@@ -83,8 +83,8 @@ public class SeedController {
         Flight flight2 = new Flight();
         flight2.setFlightNumber("FL002");
         flight2.setAirline("WestJet");
-        flight2.setDepartureAirport(gander);
-        flight2.setArrivalAirport(deerLake);
+        flight2.setDepartureAirport(findAirportByIataCode("YQX"));
+        flight2.setArrivalAirport(findAirportByIataCode("YDF"));
         flight2.setScheduledDepartureTime(LocalDateTime.now().plusHours(4));
         flight2.setScheduledArrivalTime(LocalDateTime.now().plusHours(5));
         flight2.setStatus("On Time");
@@ -96,8 +96,8 @@ public class SeedController {
         Flight flight3 = new Flight();
         flight3.setFlightNumber("FL003");
         flight3.setAirline("PAL Airlines");
-        flight3.setDepartureAirport(deerLake);
-        flight3.setArrivalAirport(stJohns);
+        flight3.setDepartureAirport(findAirportByIataCode("YDF"));
+        flight3.setArrivalAirport(findAirportByIataCode("YYT"));
         flight3.setScheduledDepartureTime(LocalDateTime.now().plusHours(6));
         flight3.setScheduledArrivalTime(LocalDateTime.now().plusHours(7));
         flight3.setStatus("Delayed");
@@ -107,5 +107,10 @@ public class SeedController {
         flightRepository.save(flight3);
 
         return "Database seeded successfully with mock data!";
+    }
+
+    private Airport findAirportByIataCode(String iataCode) {
+        return airportRepository.findByIataCode(iataCode)
+                .orElseThrow(() -> new RuntimeException("Airport with IATA code " + iataCode + " not found"));
     }
 }

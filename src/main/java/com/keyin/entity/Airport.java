@@ -17,13 +17,11 @@ public class Airport {
     private String location;
 
     @OneToMany(mappedBy = "departureAirport")
-    @JsonBackReference
-    @JsonIgnore
+    @JsonManagedReference
     private List<Flight> departures;
 
     @OneToMany(mappedBy = "arrivalAirport")
-    @JsonBackReference
-    @JsonIgnore
+    @JsonManagedReference
     private List<Flight> arrivals;
 
     public Long getId() {

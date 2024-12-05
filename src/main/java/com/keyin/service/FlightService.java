@@ -1,6 +1,9 @@
 package com.keyin.service;
 
+import com.keyin.entity.Airport;
 import com.keyin.entity.Flight;
+import com.keyin.repository.AircraftRepository;
+import com.keyin.repository.AirportRepository;
 import com.keyin.repository.FlightRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +13,11 @@ import java.util.List;
 public class FlightService {
 
     private final FlightRepository flightRepository;
+    private AirportRepository airportRepository;
 
-    public FlightService(FlightRepository flightRepository) {
+    public FlightService(FlightRepository flightRepository, AircraftRepository aircraftRepository) {
         this.flightRepository = flightRepository;
+        this.airportRepository = airportRepository;
     }
 
     public List<Flight> getAllFlights() {
@@ -55,4 +60,20 @@ public class FlightService {
     public List<Flight> getFlightsByAircraftId(Long aircraftId) {
         return flightRepository.findByAircraft_Id(aircraftId);
     }
+
+    public Flight createFlightWithIata(String flightNumber, String airline, String departureIata, String arrivalIata) {
+        Airport departureAirport = airportRepository.findByIataCode(departureIata)
+                .orElseThrow(() -> new RuntimeException("Departure airport not found"));
+        Airport arrivalAirport = airportRepository.findByIataCode(arrivalIata)
+                .orElseThrow(() -> new RuntimeException("Arrival airport not found"));
+
+        Flight flight = new Flight();
+        flight.setFlightNumber(flightNumber);
+        flight.setAirline(airline);
+        flight.setDepartureAirport(departureAirport);
+        flight.setArrivalAirport(arrivalAirport);
+
+        return flightRepository.save(flight);
+    }
+
 }
