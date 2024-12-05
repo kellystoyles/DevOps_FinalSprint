@@ -2,6 +2,7 @@ package com.keyin.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Aircraft {
@@ -18,7 +19,9 @@ public class Aircraft {
 
 
     @OneToMany(mappedBy = "aircraft")
+    @JsonBackReference
     private List<Flight> flights;
+
 
     public Long getId() {
         return id;
