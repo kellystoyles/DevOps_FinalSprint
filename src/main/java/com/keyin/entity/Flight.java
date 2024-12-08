@@ -13,7 +13,6 @@ public class Flight {
 
     private String flightNumber;
     private String airline;
-
     private LocalDateTime scheduledDepartureTime;
     private LocalDateTime scheduledArrivalTime;
     private String status;
@@ -22,19 +21,18 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "departure_airport_id")
-    @JsonBackReference
+    @JsonBackReference  // Back reference for departureAirport
     private Airport departureAirport;
 
     @ManyToOne
     @JoinColumn(name = "arrival_airport_id")
-    @JsonBackReference
+    @JsonBackReference  // Back reference for arrivalAirport
     private Airport arrivalAirport;
 
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
-    @JsonManagedReference
+    @JsonManagedReference  // Assuming Aircraft is managed side
     private Aircraft aircraft;
-
 
 
     public Long getId() {

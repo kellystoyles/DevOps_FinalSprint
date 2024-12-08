@@ -1,12 +1,11 @@
 package com.keyin.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties({"departures", "arrivals"})  // Ignore these fields during serialization
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,13 +15,17 @@ public class Airport {
     private String iataCode;
     private String location;
 
-    @OneToMany(mappedBy = "departureAirport")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "departureAirport", cascade = CascadeType.PERSIST)
+    @JsonManagedReference  // Departure flights will reference this
     private List<Flight> departures;
 
-    @OneToMany(mappedBy = "arrivalAirport")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.PERSIST)
+    @JsonManagedReference  // Arrival flights will reference this
     private List<Flight> arrivals;
+
+    public Airport() {
+    }
+
 
     public Long getId() {
         return id;

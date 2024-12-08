@@ -5,8 +5,11 @@ import com.keyin.entity.Flight;
 import com.keyin.repository.AirportRepository;
 import com.keyin.repository.FlightRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AirportService {
@@ -41,9 +44,25 @@ public class AirportService {
         return airportRepository.save(existingAirport);
     }
 
+    @Transactional
     public void deleteAirport(String iataCode) {
-        Airport airport = airportRepository.findByIataCode(iataCode)
-                .orElseThrow(() -> new RuntimeException("Airport not found with IATA code: " + iataCode));
+        // Step 1: Find the airport by IATA code
+        Optional<Airport> airportOptional = airportRepository.findByIataCode(iataCode);
+
+        if (airportOptional.isEmpty()) {
+            throw new RuntimeException("Airport not found with IATA code: " + iataCode);
+        }
+
+        Airport airport = airportOptional.get();
+
+        // Step 2: Delete related flights
+        // Delete flights that have this airport as the departure airport
+        flightRepository.deleteByDepartureAirport_IataCode(iataCode);
+
+        // Delete flights that have this airport as the arrival airport
+        flightRepository.deleteByArrivalAirport_IataCode(iataCode);
+
+        // Step 3: Delete the airport itself
         airportRepository.delete(airport);
     }
 
@@ -56,4 +75,7 @@ public class AirportService {
     }
 
 
+    public Airport save(Airport airport) {
+        return airportRepository.save(airport);
+    }
 }

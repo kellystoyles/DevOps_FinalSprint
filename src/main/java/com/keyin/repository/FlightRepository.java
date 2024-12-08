@@ -12,4 +12,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     List<Flight> findByDepartureAirport_IataCode(String iataCode);
     List<Flight> findByArrivalAirport_IataCode(String iataCode);
     List<Flight> findByStatus(String status);
+
+    void deleteByDepartureAirport_IataCode(String iataCode);
+    void deleteByArrivalAirport_IataCode(String iataCode);
 }
