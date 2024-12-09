@@ -4,6 +4,7 @@ import com.keyin.entity.Aircraft;
 import com.keyin.entity.Flight;
 import com.keyin.repository.AircraftRepository;
 import com.keyin.repository.FlightRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,9 +49,17 @@ public class AircraftService {
         return aircraftRepository.save(existingAircraft);
     }
 
+    @Transactional
     public void deleteAircraft(Long id) {
+        // Step 1: Find the aircraft by ID
         Aircraft aircraft = aircraftRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aircraft not found with ID: " + id));
+
+        // Step 2: Delete related flights
+        // Delete flights that are associated with this aircraft
+        flightRepository.deleteByAircraft_Id(id);
+
+        // Step 3: Delete the aircraft itself
         aircraftRepository.delete(aircraft);
     }
 

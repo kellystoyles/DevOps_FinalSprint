@@ -51,5 +51,7 @@ public class AircraftController {
     public void deleteAircraft(@PathVariable Long id) {
         aircraftService.deleteAircraft(id);
     }
+
 }
+
 
