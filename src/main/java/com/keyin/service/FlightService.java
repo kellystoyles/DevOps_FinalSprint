@@ -5,6 +5,7 @@ import com.keyin.entity.Flight;
 import com.keyin.repository.AircraftRepository;
 import com.keyin.repository.AirportRepository;
 import com.keyin.repository.FlightRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,9 +48,22 @@ public class FlightService {
         return flightRepository.save(existingFlight);
     }
 
+    @Transactional
     public void deleteFlight(String flightNumber) {
         Flight flight = flightRepository.findByFlightNumber(flightNumber)
                 .orElseThrow(() -> new RuntimeException("Flight not found with number: " + flightNumber));
+
+        // Handle bidirectional relationships
+        if (flight.getDepartureAirport() != null) {
+            flight.getDepartureAirport().getDepartures().remove(flight);
+        }
+        if (flight.getArrivalAirport() != null) {
+            flight.getArrivalAirport().getArrivals().remove(flight);
+        }
+        if (flight.getAircraft() != null) {
+            flight.getAircraft().getFlights().remove(flight);
+        }
+
         flightRepository.delete(flight);
     }
 

@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface AirportRepository extends JpaRepository<Airport, Long> {
     Optional<Airport> findByIataCode(String iataCode);
+    void deleteByIataCode(String iataCode);
+
 
 }

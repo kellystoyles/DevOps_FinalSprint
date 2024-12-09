@@ -3,6 +3,8 @@ package com.keyin.controller;
 import com.keyin.entity.Airport;
 import com.keyin.entity.Flight;
 import com.keyin.service.AirportService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,9 +40,13 @@ public class AirportController {
     }
 
     @PostMapping
-    public Airport createAirport(@RequestBody Airport airport) {
-        return airportService.saveAirport(airport);
+    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
+        // Save the airport using the service
+        Airport savedAirport = airportService.save(airport);
+        // Return the saved airport with a CREATED status
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAirport);
     }
+
 
     @PutMapping("/{iataCode}")
     public Airport updateAirport(@PathVariable String iataCode, @RequestBody Airport updatedAirport) {
@@ -51,5 +57,6 @@ public class AirportController {
     public void deleteAirport(@PathVariable String iataCode) {
         airportService.deleteAirport(iataCode);
     }
+
 }
 

@@ -1,10 +1,12 @@
 package com.keyin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@JsonIgnoreProperties({"flights"})  // Ignore these fields during serialization
 public class Aircraft {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
