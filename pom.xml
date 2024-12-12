@@ -44,27 +44,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-      
-      
-<!--              <!-- AWS Dependencies -->
-          <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ecs</artifactId>
-            <version>${aws.sdk.version</version>
-         </dependency>
-              <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>rds</artifactId>
-            <version>${aws.sdk.version</version>
-         </dependency>
-              <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
-            <version>${aws.sdk.version</version>
-         </dependency> -->
-
-             
-
     </dependencies>
 
     <build>
