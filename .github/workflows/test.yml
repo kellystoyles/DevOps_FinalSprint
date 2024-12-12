@@ -2,9 +2,9 @@ name: Run Unit Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   test:
@@ -21,6 +21,3 @@ jobs:
         
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-      
-    - name: Run tests
-      run: mvn test
